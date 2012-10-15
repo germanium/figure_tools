@@ -1,0 +1,109 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>demo</title><meta name="generator" content="MATLAB 7.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2011-05-13"><meta name="DC.source" content="demo.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Default cloud plot</a></li><li><a href="#2">Only show the upper right hand quadrant</a></li><li><a href="#3">Use logarithmic scale</a></li><li><a href="#4">Use only a few bins</a></li><li><a href="#5">Plot a subplot with normal curve on top, using colorbar and colormap</a></li><li><a href="#6">Use hold states and transluscent images.</a></li></ul></div><h2>Default cloud plot<a name="1"></a></h2><pre class="codeinput">cloudPlot( randn(10000,1), randn(10000,1));
+</pre><img vspace="5" hspace="5" src="demo_01.png" alt=""> <h2>Only show the upper right hand quadrant<a name="2"></a></h2><pre class="codeinput">cloudPlot( randn(10000,1), randn(10000,1), [0 4 0 4] );
+</pre><img vspace="5" hspace="5" src="demo_02.png" alt=""> <h2>Use logarithmic scale<a name="3"></a></h2><pre class="codeinput">cloudPlot( randn(10000,1), randn(10000,1), [], true);
+</pre><img vspace="5" hspace="5" src="demo_03.png" alt=""> <h2>Use only a few bins<a name="4"></a></h2><pre class="codeinput">cloudPlot( randn(10000,1), randn(10000,1), [], [], [50 50] );
+</pre><img vspace="5" hspace="5" src="demo_04.png" alt=""> <h2>Plot a subplot with normal curve on top, using colorbar and colormap<a name="5"></a></h2><pre class="codeinput">subplot ( 2, 2, 1 );
+cloudPlot( randn(10000,1), randn(10000,1)+1, [], [], [50 50] ); hold <span class="string">on</span>;
+colorbar;
+colormap( gray(256) );
+plot ( linspace(-3,3,20), 3*exp(-(linspace(-3,3,20).^2)), <span class="string">'wx-'</span> ); hold <span class="string">off</span>;
+</pre><img vspace="5" hspace="5" src="demo_05.png" alt=""> <h2>Use hold states and transluscent images.<a name="6"></a></h2><pre class="codeinput">subplot ( 1, 1, 1 );
+plot ( 10*rand(10,1), 10*rand(10,1), <span class="string">'k*-'</span> ); hold <span class="string">on</span>;
+h = cloudPlot( randn(10000,1), randn(10000,1)+1, [], [], [50 50] ); hold <span class="string">off</span>;
+set ( h, <span class="string">'AlphaData'</span>, 0.5 ); <span class="comment">% semi-transparent</span>
+colormap(1-hot);
+</pre><img vspace="5" hspace="5" src="demo_06.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.11<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Default cloud plot
+cloudPlot( randn(10000,1), randn(10000,1));
+
+%% Only show the upper right hand quadrant
+cloudPlot( randn(10000,1), randn(10000,1), [0 4 0 4] );
+
+%% Use logarithmic scale
+cloudPlot( randn(10000,1), randn(10000,1), [], true);
+
+%% Use only a few bins
+cloudPlot( randn(10000,1), randn(10000,1), [], [], [50 50] );
+
+%% Plot a subplot with normal curve on top, using colorbar and colormap
+subplot ( 2, 2, 1 );
+cloudPlot( randn(10000,1), randn(10000,1)+1, [], [], [50 50] ); hold on;
+colorbar;
+colormap( gray(256) );
+plot ( linspace(-3,3,20), 3*exp(-(linspace(-3,3,20).^2)), 'wx-' ); hold off;
+
+%% Use hold states and transluscent images.
+subplot ( 1, 1, 1 );
+plot ( 10*rand(10,1), 10*rand(10,1), 'k*-' ); hold on;
+h = cloudPlot( randn(10000,1), randn(10000,1)+1, [], [], [50 50] ); hold off;
+set ( h, 'AlphaData', 0.5 ); % semi-transparent
+colormap(1-hot);
+
+##### SOURCE END #####
+--></body></html>

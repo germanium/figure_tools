@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>Panel Documentation</title>
+<link rel="stylesheet" type="text/css" href="panel.css" />
+</head>
+
+<body>
+
+
+
+
+<div id="main">
+
+<a href="paneldemo1.png"><img src='paneldemo1_thumb.png' style='float:right; margin:16px'></a>
+
+
+<div>
+<a href="index.html">Home</a> | <a href="layout.html">Layout</a>
+</div>
+
+
+<h1>Panel 2</h1>
+
+Version 2.1
+20 Jul 2011
+
+
+
+<h2>Overview</h2>
+
+<p>Panel 2 is a Matlab utility that simplifies laying out multi-panel figures, for which you might otherwise use <tt>subplot()</tt>. Detailed reference information is available through Matlab's documentation system (<tt>doc panel</tt>) or at the prompt (<tt>help panel</tt>). This document highlights the main features.</p>
+
+
+
+<h2>Features</h2>
+
+<ul>
+
+<li>Simple control over layout, for rapid development of complex nested layouts - see example top right, thirty seconds work (see demopanel1).</li>
+<li>Easy rearrangement of layout, as opposed to sometimes tricksy <tt>subplot</tt> renumbering operation.</li>
+<li>Figure-wide control of rendering (font size, face, etc.).</li>
+<li>Work in physical units (millimetres, inches, etc.) or relative sizes, where appropriate.</li>
+<li>An important feature is WYSIWYG rendering to image files. Coupled with the easy control over layout, this allows the generation of camera-ready artwork direct from Matlab.</li>
+<li>Labelling/Titling of subplot groups, rather than individual subplots.</li>
+<li>Interation with other graphics objects (e.g. uipanels), not just axes.</li>
+
+</ul>
+
+
+
+<h2>Changes since Panel 1</h2>
+
+Upgrading users of Panel 1 will notice the following changes.
+
+<ul>
+<li>Moved to a <tt>classdef</tt> single-file implementation. The modern world, eh...</li>
+<li>Neater, but different, interface, mainly as a result of the above change.</li>
+<li>In Panel 1 you told Panel how to achieve the layout you want (rootmargin, axismargin, parentmargin). In Panel 2, you tell Panel how you want it to look (margin only, per axis) and it achieves that for you.</li>
+<li>Support for being a child and parent of other graphics objects (rather than just Figures and Axes).</li>
+<li>Miscellaneous feature additions (support for resize callbacks, layout reveal information, axis group labelling/titling, and some slight improvements to the export facility).</li>
+<li>Integrated various suggestions from Matlab Central users.</li>
+<li>One feature has not yet been integrated into Panel 2 - that's engineering scales. This will probably turn up in a later version; it's not a core part of Panel in any case. Let me know if you miss it.</li>
+</ul>
+
+
+
+<h2>Resources</h2>
+
+<p>This file is a brief introduction to the features of Panel. Beyond this, there is the <tt>panel.m</tt> file itself, which is all you need to use panel, the complete reference documentation in that file, accessible through <tt>doc panel</tt> or <tt>help panel</tt>, and the comprehensive demo scripts included in the <tt>demo</tt> folder. If you are new to Panel, start with demopanel1, and work your way through until you grow bored.</p>
+
+<p>If you want to know how to do something in particular, try "help panel/demo" and look through the headings.</p>
+
+
+<h2>Gotchas</h2>
+
+<ul>
+<li>Matlab's <tt>hold()</tt> function messes up panel's control over font properties. If you are having trouble, use panel's <tt>hold()</tt> function instead, which works in just the same way (see <tt>doc panel</tt>). Or you can just call <tt>refresh()</tt> when you're done messing around with your panels.</li>
+<li>Panel solves a Linear Programming (LP) problem to maximise use of space. If you have the Mathworks Optimisation Toolbox installed, <tt>linprog()</tt> is used, which is very fast. If you do not, Panel uses its own internal solver, which is not optimised for large problems and so it can be noticeably slow for complex layouts. If you are having trouble with this, let me know and I will prioritise incorporating an optimised solver.</li>
+</ul>
+
+
+
+<h2>Acknowledgements</h2>
+
+<p>Several Matlab Central users have made helpful suggestions which have led to Panel being improved. These are Arthur Ward, "Niko", LP Pakula, "Ian", and "Daniel". The incorporated LP solver is due to Jeff Stuart, formerly of USM.</p>
+
+
+
+
+</div>
+
+
+
+</body>
+</html>

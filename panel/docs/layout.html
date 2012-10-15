@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>Panel Documentation</title>
+<link rel="stylesheet" type="text/css" href="panel.css" />
+</head>
+
+<body>
+
+
+
+
+<div id="main">
+
+<a href="paneldemo1.png"><img src='paneldemo1_thumb.png' style='float:right; margin:16px'></a>
+
+
+<div>
+<a href="index.html">Home</a> | <a href="layout.html">Layout</a>
+</div>
+
+
+<h1>Panel 2</h1>
+
+Version 2.0
+22 May 2011
+
+
+
+<h2>Layout</h2>
+
+<p>The basic layout rule is that panels represent a hierarchy, or tree, of graphics objects. The "root panel" is attached to a Matlab graphics object (usually a figure, though see <tt>demopanelD</tt>. Each panel, root panel included, may have one or more "child panels". This process is recursive, so that the entire layout under the root panel is a family of panels packed into their respective parents.</p>
+
+<p>Each panel ends up as a "parent panel" (contains child panels) or an "object panel" (contains a graphics object, usually an axis). Newly created panels are "uncommitted" - they become parent panels if you <tt>pack()</tt> children into them, or become object panels when you <tt>select()</tt> them.</p>
+
+
+
+<h2>Packing</h2>
+
+<p>Layouts in Panel are governed primarily by "packing". Most panels will be packed in "relative" mode. This means that the space offered by their parent is distributed amongst them according to their packed sizes (fractions of the parent space). "Absolute" packing is also available - see <tt>pack()</tt>. Panels can be packed along either the horizontal or vertical dimension, so that arbitrarily complex layouts can be built.</p>
+
+<p>Note that you can develop "grid" layouts very succinctly by using the syntax <tt>pack(2, 2)</tt> (say). See <tt>doc panel</tt> and <tt>pack()</tt> for details.</p>
+
+
+
+<h2>Margins</h2>
+
+<p>The other control over layout that you will use frequently is "margins", though this is often only needed as you are finalising the layout for export. Every panel has a margin on each of its four edges. This margin is respected within the panel's parent. For most panels, the parent is the parent panel; for the root panel, the parent is the figure window.</p>
+
+<p>Note that margins are respected only within the immediate parent. For example, the margin setting of the root panel affects the layout of the whole figure with respect to the figure edge, whilst the margin settings of any child panels, grandchild panels, etc., have no impact on the relationship with the figure edge.</p> 
+
+<p>Most likely, you will set margins using <tt>p(...).margin</tt> to set an individual relationship between an individual panel and a sibling, and <tt>p(...).de.margin</tt> to control the relationships amongst all the children of <tt>p</tt>.</p>
+
+<h2>Other aspects of layout</h2>
+
+<p>One other factor affecting layout that is rarely needed is the <tt>align</tt> property - see <tt>doc panel</tt>. Note, also, that you can get/set margins in a variety of physical units - see the property <tt>units</tt>.</p>
+
+
+
+
+</div>
+
+
+
+</body>
+</html>
