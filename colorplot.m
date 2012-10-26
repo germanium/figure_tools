@@ -42,5 +42,5 @@ elseif nargin == 3                          % x,y,z data
     
 end
 
-colormap(color)
-colorbar
+% colormap(color)
+% colorbar

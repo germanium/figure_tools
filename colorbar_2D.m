@@ -1,5 +1,5 @@
 
-% 2D colorbar 
+%% 2D colorbar 
 
 c = linspace(0,1,512);              % Color range
 [R, B] = meshgrid(c);
