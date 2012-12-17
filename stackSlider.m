@@ -4,9 +4,9 @@
 % StackSlider() without input lets the user choose an lsm file to be
 % displayed. Images will be converted to and shown on an 8-bit scale.
 %
-% StackSlider(I) where I is a 3D array will display the array, assuming that
-% consecutive images are arrayed along the third dimension. As above, uses
-% 8-bit colors.
+% StackSlider(I) where I is a 3D array or a cell array with  images in each cell
+% will display the array, assuming that consecutive images are arrayed 
+% along the third dimension. As above, uses 8-bit colors.
 %
 % StackSlider('filename') where filename is a path and name of a valid image
 % stack will display said stack. As above, uses 8-bit colors.
@@ -85,9 +85,15 @@ switch nargin
             return
         end
         S.I=makestack(strcat(FilePath,FileName),'uint8');                   %Make the stack and force the class to be uint8, store in struct S
-    case 1                                                                  
+    case 1                   
+        if iscell(varargin{1})
+            varargin{1} = cat(3,varargin{1}{:});
+        end
         S.I=makestack(varargin{1},'none');                                  %One input, pass it along to makestack and force the class to be uint8, store in struct S
-    case 2                                                                  
+    case 2
+        if iscell(varargin{1})
+            varargin{1} = cat(3,varargin{1}{:});
+        end
         S.I=makestack(varargin{1},varargin{2});                             %Two inputs, pass both along to makestack, store in struct S
 end
 
