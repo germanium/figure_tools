@@ -17,12 +17,12 @@ function logTicks(h_axis, axis, xtickoffset, ytickoffset)
 % gP 9/26/2011
 
 
-if nargin < 3 || isempty(ytickoffset)
-    ytickoffset = 0.04;
+if nargin < 3 || isempty(xtickoffset)
+    xtickoffset = 0.04;
 end
 
-if nargin < 4 || isempty(xtickoffset)
-    xtickoffset = 0.04;
+if nargin < 4 || isempty(ytickoffset)
+    ytickoffset = 0.04;
 end
 
 for i=1:length(h_axis)
