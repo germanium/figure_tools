@@ -1,4 +1,4 @@
-function [shadeH plotH] = lineshade(x,y,ci,alpha,acolor)
+function [shadeH, plotH] = lineshade(x,y,ci,alpha,acolor)
 % lineshade(x,y,ci,alpha,acolor)
 % x      - x variable must be row vector
 % y      - y variable must be row vector

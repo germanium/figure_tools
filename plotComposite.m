@@ -29,10 +29,12 @@ titleStr = reshape(titleStr',1,numel(titleStr));
                                         % Load the .fig files inside the new figure
 for i=1:length(h)
     
-    hFigFile = hgload( fileNames{i} );  % Load fig
-                                        % Move/copy axis from old fig to new fig
-%     hAx = get(hFigFile, 'Child');     % These get legend handles too
-%     hAx = findall(hFigFile,'type','axes')    
+    if exist(fileNames{i}, 'file') ==2
+        hFigFile = hgload( fileNames{i} );  % Load fig                                
+    else
+        hFigFile = figure;              % If file doesn't exist replace with empty fig
+    end
+    
     hAx = gca;
     set(hAx, 'Parent',hFig)
 
