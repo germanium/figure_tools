@@ -47,5 +47,5 @@ if nargout > 0
     cMap = color;
 end
 
-% colormap(color)
-% colorbar
+colormap(color)
+colorbar
