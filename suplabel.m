@@ -64,16 +64,16 @@ whichLabel=lower(whichLabel);
 ax=axes('Units','Normal','Position',supAxes,'Visible','off');
 if strcmp('t',whichLabel)
     set(get(ax,'Title'),'Visible','on')
-    title(text,'FontSize',16);
+    title(text,'FontSize',20);
 elseif strcmp('x',whichLabel)
     set(get(ax,'XLabel'),'Visible','on')
-    xlabel(text,'FontSize',16);
+    xlabel(text,'FontSize',20);
 elseif strcmp('y',whichLabel)
     set(get(ax,'YLabel'),'Visible','on')
-    ylabel(text,'FontSize',16);
+    ylabel(text,'FontSize',20);
 elseif strcmp('yy',whichLabel)
     set(get(ax,'YLabel'),'Visible','on')
-    ylabel(text,'FontSize',16);
+    ylabel(text,'FontSize',20);
     set(ax,'YAxisLocation','right')
 end
 

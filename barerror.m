@@ -1,4 +1,4 @@
-function barerror (X,Y,E,width,ycolor,ecolor,varargin)
+function barerror(X, Y, E, width, ycolor, ecolor, varargin)
 
 % Help:
 % BarrError combines the functions 'bar' and 'errorbar' in a single function. 
@@ -55,17 +55,23 @@ hold on
 ncol = size(Y,2);
 off = fix(-ncol/2):fix(ncol/2);
 realwidth = min(diff(X))/(ncol);
+
 if ~mod(ncol,2)
-	off = [off(1:ceil(length(off)/2)-1), off(1+ ceil(length(off)/2):length(off))]; 
+	off = [off(1:ceil(length(off)/2)-1), ...
+           off(1+ ceil(length(off)/2):length(off))]; 
 end
-for h= 1:ncol
-	Xtmp= X(:,1)+ off(h)*(realwidth/2)- sign(off(h))*(~mod(ncol,2)*realwidth/4);
-	bar(Xtmp,Y(:,h),width/(2*ncol),ycolor(mod(h,1+length(ycolor))));
-	errorbar(Xtmp,Y(:,h),E(:,h),'LineStyle','none',...
-        'Color',ecolor(mod(h,1+length(ycolor))));
+
+for h=1:ncol
+	Xtmp = X(:,1) + off(h)*(realwidth/2) - sign(off(h))*(~mod(ncol,2)*realwidth/4);
+	
+    bar(Xtmp, Y(:,h), width/(2*ncol), ycolor(mod(h,1+length(ycolor))) );
+	
+    errorbar(Xtmp, Y(:,h), E(:,h), 'LineStyle', 'none',...
+        'Color', ecolor(mod(h,1+length(ycolor))) );
 end
 
 set(gca,'XTick',X);
+
 if ~isempty(varargin)
 	set(gca,'XTickLabel',varargin{1:length(varargin)}(:));
 end

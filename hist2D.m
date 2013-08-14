@@ -1,21 +1,25 @@
-function H = hist2D(X, Y, xbins, ybins, normFlag)
-% hist2D(X, Y, xbins, ybins)
+function P = hist2D(X, Y, xbins, ybins, normFlag)
+% P = hist2D(X, Y, xbins, ybins, normFlag)
 % X         - x data, can be colum or row vector
 % Y         - Y data.
 % x/ybins   - x bin centers. If not inputed uses the data range 
 % normFlag  - If true normalize distribution. Default false. 
-
+% P         ~ 2D Count/pdf array
+%
 % X = randn(2500,1);
 % Y = randn(2500,1)*2;
 % source http://stackoverflow.com/questions/6777609/fast-2dimensional-histograming-in-matlab
 
                                 % Bin centers (integers)
-if nargin < 3
+if nargin < 3 || isempty(xbins)
     xbins = floor(min(X)):1:ceil(max(X));
+end
+
+if nargin < 4 || isempty(ybins)
     ybins = floor(min(Y)):1:ceil(max(Y));
 end
 
-if nargin < 4
+if nargin < 5
     normFlag = false;
 end
 
@@ -35,11 +39,13 @@ Xi = max( min(Xi,xNumBins), 1);
 Yi = max( min(Yi,yNumBins), 1);
 
                                 % Count number of elements in each bin
-H = accumarray([Yi(:) Xi(:)], 1, [yNumBins xNumBins]);
-                                
+P = accumarray([Yi(:) Xi(:)], 1, [yNumBins xNumBins]);
+
 if normFlag
-    H = H./sum(H(:));
+    P = P./sum(P(:));
 end
 
-imagesc(xbins, ybins, H)        % Plot 2D histogram
-axis on; axis xy
+if nargout < 1
+    imagesc(xbins, ybins, P)        % Plot 2D histogram
+    axis on xy
+end

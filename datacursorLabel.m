@@ -8,7 +8,7 @@ function output_txt = datacursorLabel(~,event_obj)
 % object.
 % To set update function to this use:
 % hdt = datacursormode;
-% set(hdt,'UpdateFcn',@labeldtips);
+% set(hdt,'UpdateFcn',@datacursorLabel);
 %
 % gP 6/20/2011
 
