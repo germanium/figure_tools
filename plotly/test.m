@@ -1,0 +1,36 @@
+%% Initialization
+username = 'GermánPicasso';
+key = 'p5b5nk55aj';
+signin(username, key)
+
+%% Scatter + line plots
+
+x0 = [1,2,3,4];  y0 = [10,15,13,17];
+x1 = [2,3,4,5];  y1 = [16,5,11,9];
+
+response = plotly(x0, y0, x1, y1);
+url = response.url;
+filename = response.filename;
+
+%% Error bars on bar charts
+catagories = { {'Trial 1', 'Trial 2', 'Trial 3'} };
+control = struct('x', catagories, ...
+                 'y', [3, 6, 4], ...
+                 'error_y', struct('type', 'data', ... 
+                                   'array', [1, 0.5, 1.5], ...
+                                   'visible', true), ...
+                 'name', 'Control', 'type', 'bar');
+ 
+exp = struct('x', catagories, ...
+             'y', [4, 7, 3], ...
+             'error_y', struct('type', 'data', ...
+                               'array', [0.5, 1, 2], ...
+                               'visible', true), ...
+             'name', 'Experiment', ...
+             'type', 'bar');
+ 
+layout = struct('barmode', 'group');
+ 
+response = plotly({control, exp}, struct('layout', layout));
+url = response.url
+filename = response.filename
