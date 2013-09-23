@@ -122,8 +122,8 @@
 %             of being overwritten (default).
 %   -bookmark - option to indicate that a bookmark with the name of the
 %               figure is to be created in the output file (pdf only).
-%   handle - The handle of the figure or axes (can be an array of handles
-%            of several axes, but these must be in the same figure) to be
+%   handle - The handle of the figure, axes or uipanels (can be an array of
+%            handles, but the objects must be in the same figure) to be
 %            saved. Default: gcf.
 %
 %OUT:
@@ -165,6 +165,8 @@
 %           bookmarking of figures in pdf files.
 % 09/05/12: Incorporate patch of Arcelia Arrieta (many thanks), to keep
 %           tick marks fixed.
+% 12/12/12: Add support for isolating uipanels. Thanks to michael for
+%           suggesting it.
 
 function [im, alpha] = export_fig(varargin)
 % Make sure the figure is rendered correctly _now_ so that properties like
@@ -173,11 +175,16 @@ drawnow;
 % Parse the input arguments
 [fig, options] = parse_args(nargout, varargin{:});
 % Isolate the subplot, if it is one
-cls = strcmp(get(fig(1), 'Type'), 'axes');
+cls = all(ismember(get(fig, 'Type'), {'axes', 'uipanel'}));
 if cls
     % Given handles of one or more axes, so isolate them from the rest
     fig = isolate_axes(fig);
 else
+    % Check we have a figure
+    if ~isequal(get(fig, 'Type'), 'figure');
+        error('Handle must be that of a figure, axes or uipanel');
+    end
+    % Get the old InvertHardcopy mode
     old_mode = get(fig, 'InvertHardcopy');
 end
 % Hack the font units where necessary (due to a font rendering bug in
@@ -576,7 +583,7 @@ if ~isvector(options) && ~isbitmap(options)
 end
 
 % Check whether transparent background is wanted (old way)
-if isequal(get(fig, 'Color'), 'none')
+if isequal(get(ancestor(fig, 'figure'), 'Color'), 'none')
     options.transparent = true;
 end
 

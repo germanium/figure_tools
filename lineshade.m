@@ -10,6 +10,8 @@ function [shadeH, plotH] = lineshade(x, y, ci, alpha, acolor)
 %
 % shadeH, plotH ~ Handles to the shade en line respectively. 
 % 
+% If ci has any NaN it wont plot the shade.
+%
 % gP sometime ago?
 
 

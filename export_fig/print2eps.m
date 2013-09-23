@@ -20,7 +20,7 @@
 %   fig_handle - The handle of the figure to be saved. Default: gcf.
 %   options - Additional parameter strings to be passed to print.
 
-% Copyright (C) Oliver Woodford 2008-2012
+% Copyright (C) Oliver Woodford 2008-2013
 
 % The idea of editing the EPS file to change line styles comes from Jiro
 % Doke's FIXPSLINESTYLE (fex id: 17928)
@@ -47,6 +47,12 @@
 % 26/10/12: Fix issue to do with swapping fonts changing other fonts and
 %           sizes we don't want, due to listeners. Thanks to Malcolm Hudson
 %           for reporting the issue.
+% 22/03/13: Extend font swapping to axes labels. Thanks to Rasmus Ischebeck
+%           for reporting the issue.
+% 23/07/13: Bug fix to font swapping. Thank to George for reporting the
+%           issue.
+% 13/08/13: Fix MATLAB feature of not exporting white lines correctly.
+%           Thanks to Sebastian Heﬂlinger for reporting it.
 
 function print2eps(name, fig, varargin)
 options = {'-depsc2'};
@@ -60,7 +66,7 @@ if numel(name) < 5 || ~strcmpi(name(end-3:end), '.eps')
     name = [name '.eps']; % Add the missing extension
 end
 % Find all the used fonts in the figure
-font_handles = findobj(fig, '-property', 'FontName');
+font_handles = findall(fig, '-property', 'FontName');
 fonts = get(font_handles, 'FontName');
 if ~iscell(fonts)
     fonts = {fonts};
@@ -92,12 +98,15 @@ fonts_new = fonts;
 for a = 1:size(font_swap, 2)
     font_swap{1,a} = find(strcmp(fontslu{require_swap(a)}, fontsl));
     font_swap{2,a} = matlab_fonts{unused_fonts(a)};
-    font_swap{3,a} = fonts{font_swap{1,end}(1)};
+    font_swap{3,a} = fonts{font_swap{1,a}(1)};
     fonts_new(font_swap{1,a}) = {font_swap{2,a}};
 end
 % Swap the fonts
 if ~isempty(font_swap)
-    fonts_size = cell2mat(get(font_handles, 'FontSize'));
+    fonts_size = get(font_handles, 'FontSize');
+    if iscell(fonts_size)
+        fonts_size = cell2mat(fonts_size);
+    end
     M = false(size(font_handles));
     % Loop because some changes may not stick first time, due to listeners
     c = 0;
@@ -137,11 +146,22 @@ white_text_handles = white_text_handles(M == 3);
 % Set the font colors slightly off their correct values
 set(black_text_handles, 'Color', [0 0 0] + eps);
 set(white_text_handles, 'Color', [1 1 1] - eps);
+% MATLAB bug fix - white lines can come out funny sometimes
+% Find the white lines
+white_line_handles = findobj(fig, 'Type', 'line');
+M = get(white_line_handles, 'Color');
+if iscell(M)
+    M = cell2mat(M);
+end
+white_line_handles = white_line_handles(sum(M, 2) == 3);
+% Set the line color slightly off white
+set(white_line_handles, 'Color', [1 1 1] - 0.00001);
 % Print to eps file
 print(fig, options{:}, name);
-% Reset the font colors
+% Reset the font and line colors
 set(black_text_handles, 'Color', [0 0 0]);
 set(white_text_handles, 'Color', [1 1 1]);
+set(white_line_handles, 'Color', [1 1 1]);
 % Reset paper size
 set(fig, 'PaperPositionMode', old_pos_mode, 'PaperOrientation', old_orientation);
 % Correct the fonts

@@ -6,6 +6,8 @@ function P = hist2D(X, Y, xbins, ybins, normFlag)
 % normFlag  - If true normalize distribution. Default false. 
 % P         ~ 2D Count/pdf array
 %
+% Plot if there is no output argument 
+%
 % X = randn(2500,1);
 % Y = randn(2500,1)*2;
 % source http://stackoverflow.com/questions/6777609/fast-2dimensional-histograming-in-matlab
