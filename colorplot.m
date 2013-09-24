@@ -40,7 +40,9 @@ elseif size(Ti,2) == 3                      % x,y,z data
         line([Ti(i,1), Ti(i+1,1)], [Ti(i,2), Ti(i+1,2)], [Ti(i,3), Ti(i+1,3)],...
             'Color', color(i,:));
     end
-    
+    view(3)
+    axis equal
+    box on
 end
 
 if nargout > 0
