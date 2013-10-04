@@ -16,33 +16,39 @@ end
 
 hFig = figure('Visible','off');
 
-h = zeros(1,numel(fileNames));          % Create temporary subplots as template
-for i=1:length(h), 
-    h(i) = subplot(size(fileNames,1),size(fileNames,2),i); 
+hSub = zeros(1, numel(fileNames));     	% Create temporary subplots as template
+for i=1:length(hSub), 
+    hSub(i) = subplot(size(fileNames,1), size(fileNames,2), i); 
 end       
 
-pos = get(h, 'Position');               % Record their positions
-delete(h)                               % Delete them                           
+pos = get(hSub, 'Position');           	% Record their positions
+delete(hSub)                           	% Delete them                           
                                         % From mat indexing to linear 
-fileNames = reshape(fileNames',1,numel(fileNames));
-titleStr = reshape(titleStr',1,numel(titleStr));
+fileNames = reshape(fileNames', 1, numel(fileNames));
+titleStr = reshape(titleStr', 1, numel(titleStr));
                                         % Load the .fig files inside the new figure
-for i=1:length(h)
+for i=1:length(hSub)
     
-    if exist(fileNames{i}, 'file') ==2
+    if exist(fileNames{i}, 'file') == 2
         hFigFile = hgload( fileNames{i} );  % Load fig                                
     else
-        hFigFile = figure;              % If file doesn't exist replace with empty fig
+        hFigFile = figure;              % If file doesn't exist replace with 
+        axes                            %  empty fig with axes for consistency
     end
+                                        % Find the figure axes 
+    allAx = findobj(hFigFile, 'Type', 'axes');
+    ixFigAx = ~ismember(get(allAx,'Tag'), ...   % Find the axes of legend and 
+                        {'legend','Colorbar'}); %  colorbar and remove it from ix.
+    hAx = allAx(ixFigAx);
     
-    hAx = gca;
-    set(hAx, 'Parent',hFig)
+    set(hAx, 'Parent', hFig)                
 
-    set(hAx, 'Position',pos{i});        % Resize it to match subplot position
-    xlabel(hAx,''); ylabel(hAx,'')      % Looks better without
+    set(hAx, 'Position', pos{i});      	% Resize it to match subplot position
+    xlabel(hAx,'');     ylabel(hAx,'') 	% Looks better without
     title(hAx, titleStr{i})
     
     delete(hFigFile)                    % Delete old fig
 end
 
 set(hFig,'Visible','on')
+
