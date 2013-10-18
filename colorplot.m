@@ -1,6 +1,6 @@
 function cMap = colorplot(Ti, DT, begFLAG)
 % cMap = colorplot(Ti, [DT], [begFLAG])
-% T       - Sigle trajectory. It could be a 1D, 2D or 3D column vector
+% Ti      - Sigle trajectory. It could be a 1D, 2D or 3D column vector
 % DT      - Time between trajectory points. If empty it uses DT=1, or the
 %           trajectory index.
 % begFLAG - Flag indicating if the beggining should be marked. Default false
@@ -57,4 +57,4 @@ if nargout > 0
 end
 
 colormap(jet(DT*Np))
-colorbar
+title(colorbar, 't')
