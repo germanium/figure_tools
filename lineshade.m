@@ -1,7 +1,7 @@
 function [shadeH, plotH] = lineshade(x, y, ci, alpha, acolor)
 % [shadeH, plotH] = lineshade(x,y,ci,alpha,acolor)
-% x      - x variable must be row vector
-% y      - y variable must be row vector
+% x      - x variable, can be a column or row vector
+% y      - y variable, can be a column or row vector
 % ci     - shade range, must be a 2xN matrix, where the first row defines the
 %          top shading range and the second the lower.
 % alpha  - Defines transparency of the shading (default is no shading and black 
@@ -18,6 +18,9 @@ function [shadeH, plotH] = lineshade(x, y, ci, alpha, acolor)
 if exist('acolor','var') == 0 || isempty(acolor)
     acolor = 'r';
 end
+                    
+x = x(:)';          % Convert to row vector
+y = y(:)';
 
 if exist('alpha','var') == 0 || isempty(alpha)
     

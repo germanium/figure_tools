@@ -56,5 +56,5 @@ if nargout > 0
     cMap = color;
 end
 
-colormap(jet(DT*Np))
+colormap(jet(round(DT*Np)))
 title(colorbar, 't')

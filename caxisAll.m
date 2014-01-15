@@ -1,19 +1,19 @@
 function caxisAll(CLIM, h)
-% caxisAll(CLIM, [h])
-% CLIM - Array of color limits [cmin cmax]. 
+% caxisAll([CLIM], [h])
+% CLIM - Array of color limits [cmin cmax]. If missing it uses auto clim
 % h    - Figure handle. Default: gcf
 %
 % Sets the clim for all of the axes in the figure.
 % 
 % gP 10/16/2013
 
-if nargin < 1
+if nargin < 1 || isempty(CLIM)
     autoCLIM = true;
 else
     autoCLIM = false;
 end
 
-if nargin < 2
+if nargin < 2 || isempty(h)
     h = gcf;
 end
 

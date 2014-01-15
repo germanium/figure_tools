@@ -1,10 +1,13 @@
-function P = hist2D(X, bins, normFlag)
+function P = hist2D(X, bins, normFlag, w)
 % P = hist2D(X, bins, normFlag)
 % X         - Data, each colum corresponds to one dimension. The dimensionality
 %             of the data d is given by the number of columns
 % bins      - 1xd cell array where each cell contains a vector with the bin 
 %             centers. If not inputed uses the data range
 % normFlag  - If true normalize distribution. Default false. 
+% w         - Weights for the probability calculated from trajWeight(). If empty
+%             it doesn't use weights. Default: emtpy
+%
 % P         ~ Array with the count/pdf of data X
 %
 % Plot if there is no output argument 
@@ -23,8 +26,12 @@ if nargin < 2 || isempty(bins)  % Calculate bins automatically
     end
 end
 
-if nargin < 3
+if nargin < 3 || isempty(normFlag)
     normFlag = false;
+end
+
+if nargin < 4 || isempty(w)
+    w = [];
 end
 
 numBins = cellfun(@length, bins);
@@ -41,7 +48,11 @@ for i=1:d
     
 end
                                 % Count number of elements in each bin
-P = accumarray(fliplr(Xi), 1, fliplr(numBins));
+if isempty(w)                   % Not weighed
+    P = accumarray(fliplr(Xi), 1, fliplr(numBins));
+else                            % Weighed
+    P = accumarray(fliplr(Xi), w(:), fliplr(numBins));
+end
 
 if normFlag
     P = P./sum(P(:));
@@ -52,7 +63,6 @@ if nargout >= 1                 % If there is output argument don't plot anythin
 end
     
 if d == 2                       % Plot 2D histogram
-    
     imagesc(bins{1}, bins{2}, P)        
     axis on xy
                                 % Plot 3D volume
