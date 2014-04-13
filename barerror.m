@@ -1,5 +1,4 @@
 function barerror(X, Y, E, width, ycolor, ecolor, varargin)
-
 % Help:
 % BarrError combines the functions 'bar' and 'errorbar' in a single function. 
 % It can plot several bars (with their respective errors) per X value
@@ -22,13 +21,13 @@ function barerror(X, Y, E, width, ycolor, ecolor, varargin)
 % of Y and E
 % 
 % Example:
-% x= (1:5)';
-% y= 20*rand(length(x),3);
-% e= rand(length(x),3);
-% ycolor= ['b','r','g'];
-% ecolor= ['k','k','k'];
-% labels= {'G1','G2','G3','G4','G5'};
-% barerror(x,y,e,1,ycolor,ecolor,labels);
+x= (1:5)';
+y= 20*rand(length(x),3);
+e= rand(length(x),3);
+ycolor= ['b','r','g'];
+ecolor= ['k','k','k'];
+labels= {'G1','G2','G3','G4','G5'};
+barerror(x,y,e,1,ycolor,ecolor,labels);
 
 
 %-- Check vectors lengths & widths

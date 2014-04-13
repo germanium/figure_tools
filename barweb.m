@@ -1,7 +1,6 @@
 function handles = barweb(barvalues, errors, width, groupnames, bw_title, ...
     bw_xlabel, bw_ylabel, bw_colormap, gridstatus, bw_legend, error_sides, ...
     legend_type)
-
 %
 % Usage: handles = barweb(barvalues, errors, width, groupnames, bw_title, 
 % bw_xlabel, bw_ylabel, bw_colormap, gridstatus, bw_legend, error_sides, 
@@ -10,9 +9,8 @@ function handles = barweb(barvalues, errors, width, groupnames, bw_title, ...
 % Ex: handles = barweb(my_barvalues, my_errors, [], [], [], [], [], bone, [], 
 % bw_legend, 1, 'axis')
 %
-% barweb is the m-by-n matrix of barvalues to be plotted.
-% barweb calls the MATLAB bar function and plots m groups of n bars using the 
-% width and bw_colormap parameters.
+% barvalues   - is the m-by-n matrix of barvalues to be plotted. With m groups 
+% of n bars using the width and bw_colormap parameters.
 % If you want all the bars to be the same color, then set bw_colormap equal to  
 % the RBG matrix value ie. (bw_colormap = [1 0 0] for all red bars)
 % barweb then calls the MATLAB errorbar function to draw barvalues with error 
