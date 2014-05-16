@@ -1,20 +1,23 @@
-function P = hist2D(X, bins, normFlag, w)
+function [P,bins] = hist2D(X, bins, normFlag, w)
 % P = hist2D(X, bins, normFlag)
 % X         - Data, each colum corresponds to one dimension. The dimensionality
 %             of the data d is given by the number of columns
 % bins      - 1xd cell array where each cell contains a vector with the bin 
-%             centers. If not inputed uses the data range
+%             centers. If not entered it uses the data range.
 % normFlag  - If true normalize distribution. Default false. 
 % w         - Weights for the probability calculated from trajWeight(). If empty
 %             it doesn't use weights. Default: emtpy
 %
-% P         ~ Array with the count/pdf of data X
+% P    ~ Array with the count/pdf of data X
+% bins ~ If bins where entered as input then the output bins are the same. If bins were 
+%        entered it calculates bins based on the data range values.
 %
 % Plot if there is no output argument 
 %
 % X = randn(2500,1);
 % Y = randn(2500,1)*2;
-% source http://stackoverflow.com/questions/6777609/fast-2dimensional-histograming-in-matlab
+%
+% gP 2013 - Modified from http://stackoverflow.com/questions/6777609/fast-2dimensional-histograming-in-matlab
 
 d = size(X,2);                  % Dimensions of the input data
                             
